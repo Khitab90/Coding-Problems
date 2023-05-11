@@ -6,14 +6,26 @@
 
 function find_max_knapsack_profit(capacity, weights, values){
     let valuesLength = values.length;
+    // Check if the constraints are fulfilled for the given problem
+    // Check if the given capacity is not smaller than or equal to zero
+    // Check if the length of values is not equal to zero, if zero we will
+    // return 0
+    // Check if the length of weights is not equal to the length of the values,
+    // if false we will return 0
     if (capacity <= 0 || valuesLength == 0 || weights.length != valuesLength) {
         return 0;
     }
     let profits = Array(capacity + 1).fill(0);
     for (let i = 0; i < valuesLength; i++) {
+        // Find the profit for each capacity starting from Cn to C0
         for (let c = capacity; c > -1; c--){
+            // Check if the weight[i] is smaller than or equal to capacity
+            // in range Cn - C0
             if (weights[i] <= c){
+                // Calculate the profit using profit at capacity c and value[i]
                 let new_profit = profits[c - weights[i]] + values[i];
+                // Set profits[c] value equal to the maximum of profits[c]
+                // and new calculated profit
                 profits[c] = Math.max(profits[c],new_profit);
             }
         }
